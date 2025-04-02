@@ -63,19 +63,32 @@ npm run watch
 3. Start interacting with the MCP server
 4. With the Agent option enable ask for code review an pass the absolute path of the file
 
+## Hands-on Exercise
 
-## Hands-on exercise:
+Create a new code generation tool with the following parameters:
 
-- Create a new tool fot code generation, it should receive the following parameters:
+1. **Input Parameters**:
+   - Language: The target programming language (typescript, python, java, etc.)
+   - Description: Detailed description of the implementation requirements
+   - OutputPath: Directory path where generated files should be created
 
-- Code Language: typescript, python, java, etc...
-- Descrition of the implmentation you want
-- Path Output to create the files that it will generates
+2. **Implementation Steps**:
 
+   a. Create a Prompt Template
+      - Design a prompt that instructs the LLM what to generate
+      - The prompt should request an array of objects with:
+        ```typescript
+        {
+          code: string;        // The generated code
+          fileName: string;    // Name of the file to create
+          explanation: string; // Description of the generated code
+        }
+        ```
 
-1 - You must create a prompt to explain to your LLM model what to do and use the same info you reveive. The prompt must return a array of object an the object must have the code, the name of the file and the explanation of the generated code. 
+   b. Implement LLM Integration
+      - Make the API call to the LLM using your prompt
+      - Validate and process the response
 
-2 - Make the LLM call passing your prompt and evaluate the results
-
-3 - Create the files the LLM will return to you
-
+   c. File Generation
+      - Create the files based on the LLM response
+      - Ensure proper error handling and path validation
