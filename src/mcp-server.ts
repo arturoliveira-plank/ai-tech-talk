@@ -3,6 +3,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import fs from "fs/promises";
 import { generateCompletion } from "./providers/open-ai.js";
+import path from "path";
 // Create an MCP server
 const server = new McpServer({
   name: "Demo",
@@ -42,40 +43,6 @@ server.tool("review-my-code",
   }
 );
 
-
-// Add an addition tool
-server.tool("add",
-  { a: z.number(), b: z.number() },
-  async ({ a, b }) => ({
-    content: [{ type: "text", text: String(a + b) }]
-  })
-);
-
-// Add a dynamic greeting resource
-server.resource(
-  "greeting",
-  new ResourceTemplate("greeting://{name}", { list: undefined }),
-  async (uri, { name }) => ({
-    contents: [{
-      uri: uri.href,
-      text: `Hello, ${name}!`
-    }]
-  })
-);
-
-server.prompt(
-  "review-code",
-  { code: z.string() },
-  ({ code }) => ({
-    messages: [{
-      role: "user",
-      content: {
-        type: "text",
-        text: `Please review this code:\n\n${code}`
-      }
-    }]
-  })
-);
 
 export const runMcpServer = async () => {
   // Start receiving messages on stdin and sending messages on stdout
