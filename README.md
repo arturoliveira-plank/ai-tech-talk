@@ -74,6 +74,8 @@ npm run watch
 
 
 1 - You must create a prompt to explain to your LLM model what to do and use the same info you reveive. The prompt must return a array of object an the object must have the code, the name of the file and the explanation of the generated code. 
+
 2 - Make the LLM call passing your prompt and evaluate the results
+
 3 - Create the files the LLM will return to you
 
