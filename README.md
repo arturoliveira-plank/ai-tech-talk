@@ -70,7 +70,7 @@ npm run watch
 
 - Code Language: typescript, python, java, etc...
 - Descrition of the implmentation you want
-- Path Output to create the files tha it will generates
+- Path Output to create the files that it will generates
 
 
 1 - You must create a prompt to explain to your LLM model what to do and use the same info you reveive. The prompt must return a array of object an the object must have the code, the name of the file and the explanation of the generated code. 
