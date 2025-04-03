@@ -24,6 +24,19 @@ Return a JSON Array of objects with the following fields:
 - line: the line number of the issue
 `
 
+const codeGenerationPrompt = `
+Please generate code for the following prompt:
+
+{language}
+{description}
+{outputPath}
+
+Return a JSON Array with the following fields:
+  code: string;        // The generated code
+  fileName: string;    // Name of the file to create
+  explanation: string; // Description of the generated code
+` 
+
 server.tool("review-my-code",
   { filePath: z.string() },
   async ({ filePath }) => {
@@ -43,6 +56,13 @@ server.tool("review-my-code",
   }
 );
 
+server.tool("generate-code",
+  { language: z.string(), description: z.string(), outputPath: z.string() },
+  async ({ language, description, outputPath }) => {
+    const code = await generateCompletion(codeGenerationPrompt.replace('{language}', language).replace('{description}', description).replace('{outputPath}', outputPath));
+    return { content: [{ type: "text", text: code }]};
+  }
+);
 
 export const runMcpServer = async () => {
   // Start receiving messages on stdin and sending messages on stdout
